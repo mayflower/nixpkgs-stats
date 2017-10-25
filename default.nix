@@ -9,10 +9,8 @@ in
       name = "nixpkgs-stats";
       src = ./.;
 
-      buildInputs = [ glibcLocales ];
-      propagatedBuildInputs = with python3.pkgs; [
-        jupyter pandas plotly cufflinks
-      ];
+      buildInputs = [ glibcLocales ] ++
+        (with python3.pkgs; [ jupyter pandas plotly cufflinks ]);
 
       buildPhase = ''
         mkdir tmp
