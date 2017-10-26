@@ -1,6 +1,6 @@
-{ nixpkgs ? (import <nixpkgs> {}) }:
+{ nixpkgs ? <nixpkgs> }:
 let
-  callPackage = nixpkgs.callPackage;
+  callPackage = (import nixpkgs {}).callPackage;
 in
 {
   jupyter-notebooks = callPackage (
