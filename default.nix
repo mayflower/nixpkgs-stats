@@ -28,7 +28,7 @@ in
         mkdir -p $out/nix-support
         for stats in *.html; do
           install -vD $stats -t $out/share
-          echo "$(basename $stats .html) $out/share $stats" \
+          echo "doc none $out/share/$stats" \
             >> $out/nix-support/hydra-build-products
         done
         install -vD ${python3.pkgs.plotly}/${python3.sitePackages}/plotly/package_data/plotly.min.js \
