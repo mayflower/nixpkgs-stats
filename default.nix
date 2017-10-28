@@ -10,29 +10,31 @@ in
       src = ./.;
 
       buildInputs = [ glibcLocales ] ++
-        (with python3.pkgs; [ jupyter pandas plotly cufflinks ]);
+        (with python3.pkgs; [ jupyter pandas plotly cufflinks nbmerge ]);
 
       buildPhase = ''
         mkdir tmp
         export HOME=$(basename tmp)
         export LC_ALL=en_US.utf8
+        nbmerge commits.ipynb issues.ipynb pull-requests.ipynb -o slides.ipynb
         jupyter-nbconvert --ExecutePreprocessor.timeout=-1 --to notebook \
-          --execute *.ipynb
+          --execute slides.ipynb --inplace
         jupyter-nbconvert --to slides \
           --reveal-prefix https://cdn.jsdelivr.net/npm/reveal.js@3.5.0 \
-          *.nbconvert.ipynb
-        jupyter-nbconvert *.nbconvert.ipynb
+          slides.ipynb
+        jupyter-nbconvert slides.ipynb
       '';
 
       installPhase = ''
         mkdir -p $out/nix-support
         for stats in *.html; do
           install -vD $stats -t $out/share
-          echo "doc none $out/share/$stats" \
+          echo "doc $(basename $stats .html | tr . -) $out/share/$stats" \
             >> $out/nix-support/hydra-build-products
         done
         install -vD ${python3.pkgs.plotly}/${python3.sitePackages}/plotly/package_data/plotly.min.js \
           $out/share/plotly.js
+        install -vD custom.css $out/share/plotly.js
       '';
 
       shellHook = ''
