@@ -16,13 +16,13 @@ in
         mkdir tmp
         export HOME=$(basename tmp)
         export LC_ALL=en_US.utf8
-        nbmerge commits.ipynb issues.ipynb pull-requests.ipynb -o slides.ipynb
+        nbmerge commits.ipynb issues.ipynb pull-requests.ipynb -o stats.ipynb
         jupyter-nbconvert --ExecutePreprocessor.timeout=-1 --to notebook \
-          --execute slides.ipynb --inplace
+          --execute stats.ipynb --inplace
         jupyter-nbconvert --to slides \
           --reveal-prefix https://cdn.jsdelivr.net/npm/reveal.js@3.5.0 \
-          slides.ipynb
-        jupyter-nbconvert slides.ipynb
+          stats.ipynb
+        jupyter-nbconvert stats.ipynb
       '';
 
       installPhase = ''
