@@ -16,7 +16,7 @@ in
         mkdir tmp
         export HOME=$(basename tmp)
         export LC_ALL=en_US.utf8
-        nbmerge commits.ipynb issues.ipynb pull-requests.ipynb -o stats.ipynb
+        nbmerge commits.ipynb issues.ipynb pull-requests.ipynb meta.ipynb -o stats.ipynb
         jupyter-nbconvert --ExecutePreprocessor.timeout=-1 --to notebook \
           --execute stats.ipynb --inplace
         jupyter-nbconvert --to slides \
