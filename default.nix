@@ -34,7 +34,7 @@ in
         done
         install -vD ${python3.pkgs.plotly}/${python3.sitePackages}/plotly/package_data/plotly.min.js \
           $out/share/plotly.js
-        install -vD custom.css $out/share/plotly.js
+        install -vD custom.css $out/share/custom.css
       '';
 
       shellHook = ''
